@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee Salary</title>
+	<h1 align="center">Employee Salary</h1>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+	button {
+  background-color: blue;
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+button:hover {
+  opacity: 0.8;
+}
+td
+{
+	background-color: orange;
+}
+</style>
+</head>
+<body style="background-color: pink">
+	<form id="form" onsubmit="return dataentry()" action="" target="_self" method="POST" autocomplete="off">
+	<table border="1" align="center" style="height: 400px;width: 500px;">
+		<tr>
+			<td>Name</td>
+			<td><input type="text" name="name" id="name"></td>
+		</tr>
+		<tr>
+			<td>Basic Salary</td>
+			<td><input type="text" name="entry.1408728729" id="bsal" onchange="salary()"></td>
+		</tr>
+		<tr>
+			<td>DA</td>
+			<td><input type="text" name="entry.161230496" id="da"></td>
+		</tr>
+		<tr>
+			<td>HRM</td>
+			<td><input type="text" name="entry.968535523" id="hrm"></td>
+		</tr>
+				<tr>
+			<td>Special Allowance</td>
+			<td><input type="text" name="entry.2064066929" id="sa"></td>
+		</tr>
+		<tr>
+			<td>Total</td>
+			<td><input type="text" name="entry.767413019" id="tt"></td>
+		</tr>
+		<tr>
+			<td>Tax</td>
+			<td><input type="text" name="entry.1921028994" id="tx"></td>
+		</tr>
+		<tr>
+			<td>Net Salary</td>
+			<td><input type="text" name="entry.957785875" id="ns"></td>
+		</tr>
+		<tr>
+			<td colspan="2"><button id="send" type="submit" name="">Submit</button></center></td>
+		</tr>
+	</table>
+	</form>
+	<h1 align="center" id="sus" style="display: none;">Thanks<br><a href=""><button>Close</button></a></h1>
+<script>
+	
+
+	function salary()
+	{
+		var a= document.getElementById("bsal").value;
+		var b= parseInt(a)* (10/100);
+		document.getElementById("da").value= parseInt(b);
+
+		var c= parseInt(a)* (10/100);
+		document.getElementById("hrm").value= parseInt(c);
+
+		var d= parseInt(a)* (5/100);
+		document.getElementById("sa").value= parseInt(d);		
+
+		var e= (parseInt(a) + parseInt(b) + parseInt(c) + parseInt(d));
+		document.getElementById("tt").value= parseInt(e);
+
+		var f= parseInt(e)* (8/100);
+		document.getElementById("tx").value= parseInt(f);
+
+		var g= parseInt(e) - parseInt(f);
+		document.getElementById("ns").value= parseInt(g);
+	}
+	function dataentry()
+	{
+		var field1 = $("#bsal").val();
+        var field2 = $("#da").val();
+        var field3 = $("#hrm").val();
+        var field4 = $("#sa").val();
+        var field5 = $("#tt").val();
+        var field6 = $("#tx").val();
+        var field7 = $("#ns").val();
+
+		$.ajax({
+                    url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeu-15tISTl797V9cNbxKg__NS74Vf7tmorSMpTpvWtzSx3Wg/formResponse",
+					data: {"entry.1408728729": field1, "entry.161230496": field2, "entry.968535523": field3, "entry.2064066929": field4, "entry.767413019": field5, "entry.1921028994": field6, "entry.957785875": field7},
+                    type: "POST",
+                    dataType: "xml",
+                    success:function(d)
+                    {},
+                    error: function(x,y,z)
+                    {
+                    	$('#sus').show();
+                    	$('#form').hide();
+                    }
+                });
+		return false;
+	}
+</script>
+</body>
+</html>
